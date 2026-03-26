@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evolve Project Manager</title>
+  <link rel="icon" href="assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/project.css" />
+  <link rel="stylesheet" href="css/brief.css" />
+  <link rel="stylesheet" href="css/checklist.css" />
+</head>
+<body>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- MODAL: NUOVO PROGETTO -->
+  <div id="modal-new-project" class="modal-overlay" hidden>
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Nuovo Progetto</h2>
+        <button class="modal-close" id="btn-modal-close" aria-label="Chiudi">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="input-client-name">Nome Cliente *</label>
+          <input type="text" id="input-client-name" placeholder="Es. Taglia e Cuci Express" autocomplete="off" />
+        </div>
+        <div class="form-group">
+          <label for="input-project-type">Tipo Sito *</label>
+          <select id="input-project-type">
+            <option value="wordpress">WordPress</option>
+            <option value="ecommerce">E-commerce</option>
+            <option value="landing">Landing Page</option>
+          </select>
+        </div>
+        <!-- LOGO UPLOAD -->
+        <div class="form-group">
+          <label>Logo Progetto <span style="color:var(--muted2);font-weight:400;text-transform:none;font-size:11px;">(opzionale)</span></label>
+          <div class="logo-upload-row">
+            <div class="logo-preview-box" id="logo-preview-box">
+              <span class="logo-ph" id="logo-preview-ph">🖼</span>
+              <img id="logo-preview-img" src="" alt="" style="display:none" />
+              <div class="logo-overlay">✎</div>
+            </div>
+            <div class="logo-upload-meta">
+              <div class="logo-upload-hint">PNG, JPG, SVG · Max 500KB<br>Consigliato: sfondo trasparente</div>
+              <div class="logo-upload-filename" id="logo-upload-filename" style="display:none"></div>
+              <div class="logo-upload-btns">
+                <button type="button" class="logo-pick-btn" id="btn-pick-logo">↑ Carica logo</button>
+                <button type="button" class="logo-remove-btn" id="btn-remove-logo" style="display:none">Rimuovi</button>
+              </div>
+            </div>
+          </div>
+          <input type="file" id="input-logo-file" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden />
+        </div>
+        <div class="form-group">
+          <label>Project Bible (.txt) *</label>
+          <div class="file-drop-zone" id="file-drop-zone">
+            <span class="file-drop-icon">📄</span>
+            <span class="file-drop-text" id="file-drop-text">Trascina il file qui oppure clicca per selezionare</span>
+            <input type="file" id="input-brief-file" accept=".txt" hidden />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="btn-modal-cancel">Annulla</button>
+        <button class="btn btn-primary" id="btn-modal-confirm">Crea Progetto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ELIMINA PROGETTO -->
+  <div id="modal-confirm-delete" class="modal-overlay" hidden>
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h2 class="modal-title">Elimina Progetto</h2>
+      </div>
+      <div class="modal-body">
+        <p class="modal-message">Sei sicuro di voler eliminare <strong id="delete-project-name"></strong>?<br>L'operazione è irreversibile.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="btn-delete-cancel">Annulla</button>
+        <button class="btn btn-danger" id="btn-delete-confirm">Elimina</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP SHELL -->
+  <div id="app">
+
+    <!-- DASHBOARD VIEW -->
+    <div id="view-dashboard" class="view">
+      <header class="app-header">
+        <div class="app-logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 4h12M2 8h8M2 12h10" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="logo-text">EVOLVE</span>
+          <div class="logo-divider"></div>
+          <span class="logo-sub">Project Manager</span>
+        </div>
+        <div class="app-header-actions">
+          <button class="btn btn-ghost btn-sm" id="btn-import-json">⬆ Importa</button>
+          <input type="file" id="input-import-json" accept=".json" hidden />
+          <button class="btn btn-ghost btn-sm" id="btn-export-json">⬇ Backup</button>
+          <button class="btn btn-primary" id="btn-new-project">+ Nuovo Progetto</button>
+        </div>
+      </header>
+      <main class="dashboard-main">
+        <div id="dashboard-grid" class="project-grid"></div>
+        <div id="dashboard-empty" class="empty-state" hidden>
+          <div class="empty-icon">🗂️</div>
+          <h3>Nessun progetto</h3>
+          <p>Crea il tuo primo progetto per iniziare.</p>
+          <button class="btn btn-primary" id="btn-new-project-empty">+ Nuovo Progetto</button>
+        </div>
+      </main>
+    </div>
+
+    <!-- PROJECT VIEW -->
+    <div id="view-project" class="view" hidden>
+
+      <div id="project-client-header" class="client-header">
+        <div class="client-header-inner">
+          <div class="client-info">
+            <div class="client-logo-avatar" id="client-logo-avatar">
+              <span class="client-logo-avatar-ph" id="client-logo-avatar-ph">●</span>
+            </div>
+            <span class="client-name" id="client-name-header"></span>
+            <span class="client-badge" id="client-type-badge"></span>
+          </div>
+          <div class="client-links">
+            <span class="client-domain" id="client-domain-header"></span>
+            <a href="#" id="client-tel-header"   class="client-link client-tel"   hidden></a>
+            <a href="#" id="client-email-header" class="client-link client-email" hidden></a>
+            <a href="#" id="client-wp-header"    class="client-link client-wp"    target="_blank" rel="noopener" hidden>WP Admin ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-nav-bar">
+        <a href="#dashboard" class="breadcrumb-link">← Dashboard</a>
+        <nav class="tab-nav" id="tab-nav" role="tablist">
+          <button class="tab-btn active" data-tab="brief"     role="tab">Brief</button>
+          <button class="tab-btn"        data-tab="access"    role="tab">Accessi</button>
+          <button class="tab-btn"        data-tab="checklist" role="tab">Checklist</button>
+          <button class="tab-btn"        data-tab="assets"    role="tab">Assets</button>
+          <button class="tab-btn"        data-tab="revisions" role="tab">Revisioni</button>
+        </nav>
+      </div>
+
+      <main class="project-main">
+        <div id="tab-brief"     class="tab-panel">          <div id="brief-content"></div></div>
+        <div id="tab-access"    class="tab-panel" hidden>   <div id="access-content"></div></div>
+        <div id="tab-checklist" class="tab-panel" hidden>   <div id="checklist-content"></div></div>
+        <div id="tab-assets"    class="tab-panel" hidden>   <div id="assets-content"></div></div>
+        <div id="tab-revisions" class="tab-panel" hidden>   <div id="revisions-content"></div></div>
+      </main>
+
+    </div>
+
+  </div>
+
+  <script src="js/data/checklist-phases.js"></script>
+  <script src="js/data/brief-parser.js"></script>
+  <script src="js/data/revision-parser.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/projects.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/render/dashboard.js"></script>
+  <script src="js/render/brief.js"></script>
+  <script src="js/render/access.js"></script>
+  <script src="js/render/checklist.js"></script>
+  <script src="js/render/assets.js"></script>
+  <script src="js/render/revisions.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+/* =============================================
+   EVOLVE PROJECT MANAGER — brief.css
+   Componenti UI Brief — allineato al JS
+   ============================================= */
+
+/* ---- SECTION HEADER (usato in tutte le tab) ---- */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 12px;
+}
+.text-muted { color: var(--muted); }
+.mt-4 { margin-top: 4px; }
+.mt-16 { margin-top: 16px; }
+
+/* ---- BRIEF CARD ---- */
+.brief-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+.brief-card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+/* ---- INNER TABS DEL BRIEF ---- */
+.inner-tab-nav {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
+}
+.inner-tab-btn {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 8px 14px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.15s;
+  letter-spacing: 0.03em;
+  background: none;
+  cursor: pointer;
+}
+.inner-tab-btn:hover { color: var(--text); }
+.inner-tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ---- FIELD GRID (scheda dati cliente) ---- */
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+}
+.field-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 11px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.field-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.field-value {
+  font-size: 13px;
+  color: var(--text);
+  word-break: break-word;
+  line-height: 1.5;
+}
+.field-value a { color: var(--info); }
+.field-value a:hover { text-decoration: underline; }
+
+/* ---- NOTE OPERATIVE ---- */
+.note-operative-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.note-operative-item {
+  font-size: 13px;
+  color: var(--text);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+.note-operative-item::before { content: '•'; position: absolute; left: 0; color: var(--accent); }
+
+/* ---- BRAND ---- */
+.brand-para { font-size: 14px; line-height: 1.7; color: var(--text); margin: 0; }
+.brand-proposta {
+  background: var(--accent-dim);
+  border: 1px solid rgba(200,241,53,0.25);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.brand-tono-label {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+/* ---- CHIP LIST ---- */
+.chip-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* ---- FRASI ---- */
+.frasi-list { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.frase-item { font-size: 13px; padding: 8px 12px; border-radius: var(--radius-sm); line-height: 1.5; }
+.frase-ok { background: rgba(52,199,123,0.08); border-left: 3px solid var(--success); }
+.frase-no { background: rgba(255,94,94,0.08);  border-left: 3px solid var(--danger); }
+
+/* ---- PERSONAS ---- */
+.personas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.persona-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.persona-card-header {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.persona-fields { display: flex; flex-direction: column; gap: 8px; }
+.persona-field { display: flex; flex-direction: column; gap: 2px; }
+.persona-field-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.persona-field-value { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+/* ---- STRUTTURA ACCORDION ---- */
+.struttura-list { display: flex; flex-direction: column; gap: 8px; }
+.struttura-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+.struttura-item-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 16px; cursor: pointer; user-select: none; gap: 10px; transition: background 0.15s;
+}
+.struttura-item-header:hover { background: var(--surface2); }
+.struttura-pagina-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; flex: 1; }
+.struttura-keyword-badge { font-size: 11px; color: var(--muted); background: var(--surface2); padding: 3px 8px; border-radius: 4px; flex-shrink: 0; }
+.struttura-chevron { color: var(--muted); font-size: 10px; transition: transform 0.2s; flex-shrink: 0; }
+.struttura-item.open .struttura-chevron { transform: rotate(180deg); }
+.struttura-item-body { display: none; padding: 4px 16px 14px; }
+.struttura-item.open .struttura-item-body { display: block; }
+.struttura-sezioni-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.struttura-sezioni-item { font-size: 13px; color: var(--muted); padding-left: 16px; position: relative; line-height: 1.5; }
+.struttura-sezioni-item::before { content: '→'; position: absolute; left: 0; color: var(--border); font-size: 11px; }
+
+/* ---- RIEPILOGO TABLE ---- */
+.riepilogo-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 20px; }
+.riepilogo-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--text); }
+.riepilogo-table td:first-child { color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.riepilogo-table tr:last-child td { border-bottom: none; }
+
+/* ---- KEYWORDS TABLE ---- */
+.keywords-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.keywords-table th { text-align: left; padding: 8px 14px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); background: var(--surface2); border-bottom: 1px solid var(--border); }
+.keywords-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.keywords-table tr:last-child td { border-bottom: none; }
+.keywords-table tr:hover td { background: var(--surface2); }
+.kw-secondary { color: var(--muted); }
+
+/* ---- PALETTE ---- */
+.palette-grid { display: flex; flex-wrap: wrap; gap: 16px; }
+.swatch-card { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.swatch-color { width: 64px; height: 64px; border-radius: var(--radius-sm); border: 1px solid var(--border); cursor: pointer; transition: transform 0.15s; }
+.swatch-color:hover { transform: scale(1.08); }
+.swatch-info { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.swatch-ruolo { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.swatch-nome { font-size: 11px; font-weight: 600; color: var(--text); }
+.swatch-hex { font-size: 11px; color: var(--muted); font-family: monospace; cursor: pointer; }
+.swatch-hex:hover { color: var(--accent); }
+
+/* ---- TIPOGRAFIA ---- */
+.tipografia-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.tipografia-item { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; display: flex; gap: 14px; align-items: flex-start; }
+.tipografia-ruolo { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); min-width: 80px; padding-top: 2px; }
+.tipografia-font { font-size: 15px; font-weight: 600; color: var(--text); }
+.tipografia-mot { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ---- TEMPLATE QUERIES ---- */
+.template-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.template-item a { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--info); padding: 7px 14px; border-radius: var(--radius-sm); background: var(--surface2); border: 1px solid var(--border); transition: background 0.15s; text-decoration: none; }
+.template-item a:hover { background: var(--border); color: var(--text); }
+
+/* ---- FORM FIELDS (accessi, assets) ---- */
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.form-group input,
+.form-group textarea,
+.form-group select {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 10px 14px; font-size: 14px; color: var(--text); outline: none; transition: border-color 0.15s; width: 100%;
+}
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(--accent); }
+.form-group textarea { resize: vertical; min-height: 100px; font-family: 'DM Sans', sans-serif; }
+
+/* ---- FALLBACK ---- */
+.brief-raw-fallback {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 20px; font-size: 13px; line-height: 1.7; color: var(--muted);
+  white-space: pre-wrap; font-family: monospace; max-height: 500px; overflow-y: auto;
+}
+.brief-empty { text-align: center; padding: 60px; color: var(--muted); font-size: 14px; }
+
+/* brief-inner-panel: visibility controlled via [hidden] attribute */
+.brief-inner-panel { display: block; }
+
+/* ---- v2 REFINEMENTS ---- */
+.brief-card { transition: border-color 0.15s; }
+.brief-card:hover { border-color: var(--border2); }
+.field-item { transition: border-color 0.15s; }
+.field-item:hover { border-color: var(--border2); }
+.inner-tab-btn:hover { background: var(--accent-dim2); }
+.section-header .btn { flex-shrink: 0; }
